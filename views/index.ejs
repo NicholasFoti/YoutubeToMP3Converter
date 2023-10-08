@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Youtube to MP3 Converter</title>
+</head>
+<body>
+    <div class="container-md">
+        <h1><i class="fa-brands fa-youtube"></i>YouTube to MP3/MP4 Converter</h1>
+        <div class="border1">
+            <div class="container-md">
+                <form action="/convert-mp3" method="POST" id="form">
+                    <h3><bold>Convert to MP3</bold></h3>
+                    <div class="input-group mb-3 mx-auto">
+                        <input type="text" class="form-control" id="videoUrl" name="videoUrl" placeholder="Enter link here..."><button type="submit" id="convert-btn" class="btn btn-danger mp3" for="videoUrl">Convert</button>
+                    </div>
+                </form>
+            </div>
+    
+            <div class="container-md">
+                <form action="/convert-mp4" method="POST" id="form">
+                    <h3><bold>Convert to MP4</bold></h3>
+                    <div class="input-group mb-3 mx-auto">
+                        <input type="text" class="form-control" id="videoUrl" name="videoUrl" placeholder="Enter link here..."><button id="convert-btn" class="btn btn-danger mp4" for="videoUrl">Convert</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="bottom-container">
+            <% if(typeof success != "undefined" && success && mp3) { %>
+                <div class="success">
+                    <h2>Successfully converted</h2>
+                    <p><bold><%= video_title %></bold></p>
+                    <a href="<%= video_link %>" target="_blank"><button id="download-btn" class="btn btn-success">DOWNLOAD .MP3</button></a>
+                </div>
+            <% } else if(typeof success != "undefined" && success && mp4) { %>
+                <div class="success">
+                    <h2>Successfully converted</h2>
+                    <p><bold><%= video_title %></bold></p>
+                    <a href="<%= video_link %>" target="_blank"><button id="download-btn" class="btn btn-success">DOWNLOAD .MP4</button></a>
+                </div>
+            <% } else if(typeof success != "undefined" && !success) { %>
+                <div class="errors">
+                    <p><%= message %></p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
