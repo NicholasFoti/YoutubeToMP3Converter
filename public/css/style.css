@@ -6,12 +6,34 @@ body{
     font-family: 'Orbitron', sans-serif;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.heading{
+    padding-bottom: 50px;
+}
+
+.fa-youtube{
+    transition: 0.3s ease-out;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+a:hover .fa-youtube{
+    transform: rotate(180deg);
+}
+
 h1{
     color: grey;
     text-align: center;
     text-transform: capitalize;
     padding-top: 50px;
-    padding-bottom: 100px;
+    padding-bottom: 10px;
 }
 
 h2{
@@ -59,6 +81,11 @@ i{
     color: white;
 }
 
+.fa-gear{
+    color: white;
+    transition: 0.3s ease-out;
+}
+
 .input-group{
     max-width: 500px;
 }
@@ -75,9 +102,18 @@ i{
 
 #form button:hover{
     background-color: lightcoral;
+    transform: scale(1.2);
   }
 
-  #download-btn:hover{
+#form button:hover input{
+    transform: scale(1.2);
+  }
+
+#form button:hover .fa-gear{
+    transform: rotate(360deg);
+  }
+
+#download-btn:hover{
     transform: scale(1.4);
   }
 
@@ -86,7 +122,8 @@ i{
 }
 
 .border1{
-    border: 1px solid grey;
+    border: 2px solid grey;
+    background-color: rgb(29, 28, 28);
     margin: auto auto 20px;
     border-radius: 50px;
     width: 50%;
