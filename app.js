@@ -24,9 +24,39 @@ app.get("/", (req, res) => {
 })
 
 function extractVideoId(url) {
-    const regex = /v=([^&]+)/;
+    const regex = /v=([^&]+)|shorts\/([^/?]+)/;
     const match = url.match(regex);
-    return match ? match[1] : null;
+    if (match) {
+        return match[1] || match[2]
+    }
+    return null;
+}
+
+const MAX_RETRIES = 10;
+const RETRY_DELAY = 5000;
+
+async function getVideoData(videoId, retries = 0){
+    const fetchAPI = await fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+        "method" : "GET",
+        "headers" : {
+            "x-rapidapi-key" : process.env.API_KEY,
+            "x-rapidapi-host" : process.env.MP3_API_HOST
+        }
+    });
+
+    const fetchResponse = await fetchAPI.json();
+
+    if (fetchResponse.status === "processing" && retries < MAX_RETRIES) {
+        console.log(`Retrying in ${RETRY_DELAY/1000} seconds...`);
+        return new Promise(resolve => {
+            setTimeout(async () => {
+                const data = await getVideoData(videoId, retries + 1);
+                resolve(data);
+            }, RETRY_DELAY);
+        });
+    } else {
+        return fetchResponse;
+    }
 }
 
 app.post("/convert-mp3", async (req, res) => {
@@ -38,23 +68,16 @@ app.post("/convert-mp3", async (req, res) => {
         videoId === null
     ){
         return res.render("index", {success : false, message : "Please enter a valid URL"});
-    }else{
-        const fetchAPI = await fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
-            "method" : "GET",
-            "headers" : {
-                "x-rapidapi-key" : process.env.API_KEY,
-                "x-rapidapi-host" : process.env.MP3_API_HOST
-            }
-        });
+        }
 
-        const fetchResponse = await fetchAPI.json();
+        const fetchResponse = await getVideoData(videoId);
 
-        if(fetchResponse.status === "ok")
+        if(fetchResponse.status === "ok"){
             return res.render("index", {success : true, mp3 : true, video_title: fetchResponse.title, video_link : fetchResponse.link});
-        else
+        }else{
         return res.render("index", {success : false, message : fetchResponse.msg})
     }  
-})
+});
 
 app.post("/convert-mp4", async (req, res) => {
     let videoUrl = req.body.videoUrl;
