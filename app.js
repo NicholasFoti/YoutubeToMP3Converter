@@ -100,7 +100,7 @@ app.post("/convert-mp4", async (req, res) => {
         const fetchResponse = await fetchAPI.json();
 
         if(fetchResponse.status === "OK")
-            return res.render("index", {success : true, mp3 : false, mp4 : true, video_title: fetchResponse.title, video_link : fetchResponse.formats[2].url});
+            return res.render("index", {success : true, mp3 : false, mp4 : true, video_title: fetchResponse.title, video_link : fetchResponse.formats[1].url});
         else
         console.log(fetchResponse);
         return res.render("index", {success : false, message : "Couldnt Retrieve Video"})
