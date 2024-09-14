@@ -13,6 +13,10 @@
         <h1><a href="/"><i class="fa-brands fa-youtube"></i>YouTube to MP3/MP4 Converter</h1></a>
         <p class="heading"><i class="fa-solid fa-xmark"></i> No more Ads! <i class="fa-solid fa-xmark"></i></p>
         <div class="border1">
+            <div class="loading" id="loading-spinner" style="display: none;">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             <div class="container-md">
                 <form action="/convert-mp3" method="POST" id="form">
                     <h3><bold>Convert to MP3</bold></h3>
@@ -53,4 +57,11 @@
         </div>
     </div>
 </body>
+<script>
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            document.getElementById('loading-spinner').style.display = 'block';
+        });
+    });
+</script>
 </html>
