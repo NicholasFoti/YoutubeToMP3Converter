@@ -31,12 +31,14 @@
                 </form>
             </div>
         </div>
+
+        <div class="loading" id="loading-spinner" style="display: none;">
+            <div class="spinner-border text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         
         <div class="bottom-container">
-            <div class="loading" id="loading-spinner" style="display: none;">
-                <div class="spinner-border text-danger" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
             <% if(typeof success != "undefined" && success && mp3) { %>
                 <div class="success">
                     <h2>Successfully converted</h2>
