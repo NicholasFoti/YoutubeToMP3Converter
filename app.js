@@ -36,7 +36,7 @@ const MAX_RETRIES = 10;
 const RETRY_DELAY = 5000;
 
 async function getVideoData(videoId, retries = 0){
-    const fetchAPI = await fetch(`https://youtube-mp3-download1.p.rapidapi.com/dl?id=${videoId}`, {
+    const fetchAPI = await fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
         "method" : "GET",
         "headers" : {
             "x-rapidapi-key" : process.env.API_KEY,
